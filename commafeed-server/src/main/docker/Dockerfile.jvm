@@ -1,0 +1,15 @@
+FROM ibm-semeru-runtimes:open-21.0.5_11-jre
+EXPOSE 8082
+
+RUN mkdir -p /commafeed/data
+VOLUME /commafeed/data
+
+COPY artifacts/extracted-jvm-package/quarkus-app/ /commafeed
+WORKDIR /commafeed
+
+CMD ["java", \
+    "-Xtune:virtualized", \
+    "-Xminf0.05", \
+    "-Xmaxf0.1", \
+    "-jar", \
+    "quarkus-run.jar"]
