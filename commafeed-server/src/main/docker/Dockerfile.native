@@ -1,0 +1,14 @@
+FROM debian:13.7@sha256:2dc419c6d7fe3dad0a2f9fd469c34cc90b0f9ba642d8fde837fe3d7d34a0e7f1
+LABEL org.opencontainers.image.source="https://github.com/Athou/commafeed"
+
+ARG TARGETARCH
+
+EXPOSE 8082
+
+RUN mkdir -p /commafeed/data
+VOLUME /commafeed/data
+
+COPY artifacts/commafeed-*-${TARGETARCH}-runner /commafeed/commafeed
+WORKDIR /commafeed
+
+CMD ["./commafeed"]
